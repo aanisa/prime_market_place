@@ -1,6 +1,6 @@
 var marketApp = angular.module('marketApp', []);
 
-marketApp.Factory('MarketService', [function() {
+marketApp.factory('MarketService', [function() {
 
     class userAcc {
         constructor(balance, cart) {
@@ -43,7 +43,7 @@ marketApp.Factory('MarketService', [function() {
 
 
 
-    
+
 
 
 
