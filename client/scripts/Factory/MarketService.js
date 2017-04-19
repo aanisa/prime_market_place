@@ -1,14 +1,12 @@
 var marketApp = angular.module('marketApp', []);
 
 marketApp.factory('MarketService', [function() {
-
-    class utilities{
+  class utilities{
         constructor(){}
         static randomNumber (max,min){
           return Math.floor(Math.random() * (1 + max - min ) + min);
         }
     }
-
 
     class marketItem{
         constructor(name, price){
@@ -17,15 +15,21 @@ marketApp.factory('MarketService', [function() {
         }//ends contructor
 
         changePrice(){
-
-
+          let price = this.price + utilities.randomNumber(.5,-.5);
+          if (price > 9.99){
+            price = 9.99
+          }
+          else if (price < .50){
+            price = .50
+          }
+          this.price = price;
         }//ends changePrice
     }//ends marketItem
 
     class userAcc {
-        constructor(balance, cart) {
+        constructor(balance) {
             this.balance = balance;
-            this.cart = cart;
+            this.cart = [];
         }
 
         IncBal(salePrice) {
@@ -59,7 +63,21 @@ marketApp.factory('MarketService', [function() {
         }
     } //end UserAcc Class
 
-    var user = new UserAcc;
+    const BALANCE = 100;
+
+    let marketItems = [];
+    let market = {};
+
+    let user = new UserAcc(BALANCE);
+
+    let listOfItems = ['apple'];
+
+    for (index of listOfItems) {
+      let newItem = new marketItem(index, utilities.randomNumber(9.99,.50));
+      marketItems.push(newItem);
+    }
+
+    market.marketItems = mareketItems;
 
 
 
@@ -68,8 +86,8 @@ marketApp.factory('MarketService', [function() {
 
 
     return {
-        user: user
-
+        user: user,
+        market: market
     }
 
 }]);
