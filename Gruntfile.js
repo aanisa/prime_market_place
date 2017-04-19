@@ -3,7 +3,8 @@ module.exports = function(grunt){
     pkg: grunt.file.readJSON('package.json'),
     uglify: {
       build: {
-        src: 'client/scripts/*.js',
+        src: ['client/scripts/*.js',
+              'client/scripts/**/*.js'],
         dest: 'server/public/scripts/client.min.js'
       }
     },
@@ -38,7 +39,7 @@ module.exports = function(grunt){
     },
     watch: {
       files: [
-        'client/**/*.*'
+        'client/**/*.*',
       ],
       tasks: ['uglify', 'copy']
     }
