@@ -1,6 +1,26 @@
 var marketApp = angular.module('marketApp', []);
 
-marketApp.Factory('MarketService', [function() {
+marketApp.factory('MarketService', [function() {
+
+    class utilities{
+        constructor(){}
+        static randomNumber (max,min){
+          return Math.floor(Math.random() * (1 + max - min ) + min);
+        }
+    }
+
+
+    class marketItem{
+        constructor(name, price){
+          this.name = name;
+          this.price = price;
+        }//ends contructor
+
+        changePrice(){
+
+
+        }//ends changePrice
+    }//ends marketItem
 
     class userAcc {
         constructor(balance, cart) {
@@ -43,7 +63,7 @@ marketApp.Factory('MarketService', [function() {
 
 
 
-    
+
 
 
 
