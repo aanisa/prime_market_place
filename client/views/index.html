@@ -16,13 +16,26 @@
   <div class="row header">
     <h1>Welcome To The Market</h1>
   </div>
-<div ng-controller='MarketController'>
-  <div class="item_container">
-    <div class="item_name">Item Name</div>
-  
-    <button type="button" ng-click="">Sell</button>
+<div ng-controller="BalanceController">
+  <p>Balance</p>
+</div>
+<div class="row" ng-controller='BuyController'>
+    <div class="buy_container col-md-12" ng-repeat="item in availableItems">
+      <div class="item_container">
+        <div class="item_name">{{item.name}}</div>
+        <div class="item_price">{{item.price}}</div>
+      </div>
+    </div>
+</div>
+
+
+<div class="row" ng-controller="SellController">
+  <div class="sell_container col-md-12" ng-repeat="sellItem in itemsInCart">
+    <div class="item_avgPrice">{{sellItem.avgPrice}}</div>
+    <div class="item_available">{{sellItem.name + " " +sellItem.available}}</div>
   </div>
 </div>
+
 </div>
   </body>
 </html>
