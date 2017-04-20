@@ -81,15 +81,28 @@ marketApp.factory('MarketService', [function() {
 
     market.marketItems = mareketItems;
 
+        let sellItem = (item) => {
+            //balance + item.price (from MArketItems)
+            user.balance += item;
 
+            //remove from cart first instance of that item
+            for (index of cart) {
+                if (index === name) {
+                    cart.splice(index);
+                }
+            }
+            // call this method     DecBal()
+        }
 
+        let buyItem = () => {
 
-
-
+        }
 
     return {
         user: user,
         market: market,
+        sellItem: sellItem,
+        buyItem: buyItem
 
     }
 
