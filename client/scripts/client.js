@@ -27,6 +27,6 @@ marketApp.controller('MarketController', ['$scope', '$interval', 'MarketService'
     for (let i = 0; i < $scope.availableItems.length; i++) {
       $scope.availableItems[i].changePrice();
     }
-  },15000);
+  },1000);
 
 }]);

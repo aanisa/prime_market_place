@@ -10,6 +10,8 @@ marketApp.factory('MarketService', [function() {
     const MINPRICE = 0.50;
     const MAXPRICECHANGE = 0.5;
     const MINPRICECHANGE = -0.5
+    const MAXCOLLECTIBLES = 0.30;
+    const MINCOLLECTIBLES = 0.1;
 
     class marketItem{
         constructor(name, price){
@@ -29,6 +31,23 @@ marketApp.factory('MarketService', [function() {
           this.price = price.toFixed(2);
         }//ends changePrice
     }//ends marketItem
+
+    class collectibles extends marketItem {
+
+      constructor(name,price) {
+        super(name,price);
+      }
+
+      changePrice(){
+        let price = parseFloat(this.price) + parseFloat(utilities.randomNumber(MAXCOLLECTIBLES,MINCOLLECTIBLES));
+        // console.log('Random number: ',parseFloat(utilities.randomNumber(MAXPRICECHANGE,MINPRICECHANGE)));
+        if (price > 9.99){
+          price = 9.99
+        }
+        this.price = price.toFixed(2);
+      }//ends changePrice
+
+    }
 
     class UserAcc {
         constructor(balance) {
@@ -87,10 +106,23 @@ marketApp.factory('MarketService', [function() {
 
     //list of items which will be instantiated as objects of class marketItem
     let listOfItems = ['toaster', 'lamp', 'clock', 'blueRay player','apples','oranges','bananas','grapes','comic books','stuffed animals','jewelry','wine'];
+    let listOfElectronics = ['toaster', 'lamp', 'clock', 'blueRay player'];
+    let listOfFruit = ['apples','oranges','bananas','grapes'];
+    let listOfCollectibles = ['comic books','stuffed animals','jewelry','wine'];
+
 
     //for of loop which instantiates objects of class marketItem based on the listOfItems array
-    for (index of listOfItems) {
+    for (index of listOfElectronics) {
       let newItem = new marketItem(index, utilities.randomNumber(MAXPRICE,MINPRICE));
+      marketItems.push(newItem);
+    }
+
+    for (index of listOfFruit) {
+      let newItem = new marketItem(index, utilities.randomNumber(MAXPRICE,MINPRICE));
+      marketItems.push(newItem);
+
+    }for (index of listOfCollectibles) {
+      let newItem = new collectibles(index, utilities.randomNumber(MAXPRICE,MINPRICE));
       marketItems.push(newItem);
     }
 
