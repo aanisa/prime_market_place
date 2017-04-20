@@ -28,7 +28,7 @@
 
       <div class="row" ng-controller="BalanceController">
         <div class="balance_container col-md-12">
-          <p>{{'Player Cash: $' + user.balance}}</p>
+          <p>{{'Player Cash: $'}} {{ user.balance | number:2}}</p>
         </div>
       </div>
 

@@ -17,8 +17,10 @@ marketApp.controller('MarketController', ['$scope', '$interval', 'MarketService'
   };
 
   $scope.sellOneItem = function(item) {
-    console.log('sell button clicked, selling one', item);
-    MarketService.sellItem(item);
+    if(item.count > 0) {
+      console.log('sell button clicked, selling one', item);
+      MarketService.sellItem(item);
+    }
     // console.log('cartSummary in sellOneItem',$scope.cartSummary);
   };
 
@@ -27,6 +29,6 @@ marketApp.controller('MarketController', ['$scope', '$interval', 'MarketService'
     for (let i = 0; i < $scope.availableItems.length; i++) {
       $scope.availableItems[i].changePrice();
     }
-  },1000);
+  },15000);
 
 }]);
