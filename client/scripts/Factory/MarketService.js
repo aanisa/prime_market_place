@@ -1,5 +1,3 @@
-var marketApp = angular.module('marketApp', []);
-
 marketApp.factory('MarketService', [function() {
   class utilities{
         constructor(){}
@@ -26,7 +24,7 @@ marketApp.factory('MarketService', [function() {
         }//ends changePrice
     }//ends marketItem
 
-    class userAcc {
+    class UserAcc {
         constructor(balance) {
             this.balance = balance;
             this.cart = [];
@@ -91,17 +89,19 @@ marketApp.factory('MarketService', [function() {
       //balance + item.price (from MArketItems)
       user.IncBal(item.price);
       //remove from cart first instance of that item
-      for (index of cart) {
+      for (index of user.cart) {
           if (index === name) {
-              cart.splice(index);
+              user.cart.splice(index);
               return; // need to jump out of for of loop
-          }
-      }
-      // call this method     DecBal()
+          }//end if
+      }//ends for loop
     }// end sellItem function
 
-    let buyItem = () => {
-
+    let buyItem = (item) => {
+      //balance - item.price (from MArketItems)
+      user.DecBal(item.price);
+      //add item to cart
+      user.cart.push(item);
     }// end buyItem function
 
     return {

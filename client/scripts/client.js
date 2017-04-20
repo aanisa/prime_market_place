@@ -1,35 +1,36 @@
 var marketApp = angular.module('marketApp', []);
 
-marketApp.controller('BalanceController', ['$scope', function($scope){
+marketApp.controller('BalanceController', ['$scope', 'MarketService', function($scope, MarketService){
   console.log("inside BalanceController ");
   // temporary variable that stores balance
   $scope.balance = 100;
 
 }]);
 
-marketApp.controller('BuyController', ['$scope', function($scope){
+marketApp.controller('BuyController', ['$scope', 'MarketService', function($scope, MarketService){
   console.log("inside BuyController");
   //temporary array of items
-  $scope.availableItems = [{name:"Toaster",price:3},
-                           {name:"Lamp",price:14},
-                           {name:"Clock",price:5},
-                           {name:"BlueRay Player",price:3},
-                           {name:"Apples",price:3},
-                           {name:"Oranges",price:3},
-                           {name:"Bananas",price:3},
-                           {name:"Grapes",price:3},
-                           {name:"Comic Books",price:3},
-                           {name:"Stuffed Animals",price:3},
-                           {name:"Jewelry",price:3},
-                           {name:"Wine",price:3}];
-
+  // $scope.availableItems = [{name:"Toaster",price:3},
+  //                          {name:"Lamp",price:14},
+  //                          {name:"Clock",price:5},
+  //                          {name:"BlueRay Player",price:3},
+  //                          {name:"Apples",price:3},
+  //                          {name:"Oranges",price:3},
+  //                          {name:"Bananas",price:3},
+  //                          {name:"Grapes",price:3},
+  //                          {name:"Comic Books",price:3},
+  //                          {name:"Stuffed Animals",price:3},
+  //                          {name:"Jewelry",price:3},
+  //                          {name:"Wine",price:3}];
+  $scope.availableItems = MarketService.market.marketItems;
+  console.log("$scope.availableItems", $scope.availableItems);
   $scope.buyOneItem = function(item) {
    console.log('buy button clicked, buying one', item);
   };
 
 }]);
 
-marketApp.controller('SellController', ['$scope', function($scope){
+marketApp.controller('SellController', ['$scope', 'MarketService', function($scope, MarketService){
   console.log("inside SellController");
   //temporary array of purchased products
   $scope.itemsInCart = [{name:"Toaster",avgPrice:3,available:5},
