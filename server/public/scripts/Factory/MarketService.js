@@ -74,7 +74,14 @@ marketApp.factory('MarketService', [function() {
     let marketItems = [];
     let market = {};
 
+<<<<<<< HEAD
     let listOfItems = ['apple'];
+=======
+    let user = new UserAcc(BALANCE);
+
+    let listOfItems = ['toaster', 'lamp', 'clock', 'blueRay player','apples','oranges','bananas','grapes','comic books','stuffed animals','jewelry','wine'];
+
+>>>>>>> b3ff95484cd5e7661b40e97e4d2e787d16eae379
     for (index of listOfItems) {
         let newItem = new marketItem(index, utilities.randomNumber(9.99, .50));
         marketItems.push(newItem);
