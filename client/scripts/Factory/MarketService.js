@@ -5,7 +5,7 @@ marketApp.factory('MarketService', [function() {
           return ((Math.random() * (max - min ) + min).toFixed(2));
         }
     }
-    const BALANCE = 100;
+    let balance = 100;
     const MAXPRICE = 9.99;
     const MINPRICE = 0.50;
     const MAXPRICECHANGE = 0.5;
@@ -33,7 +33,7 @@ marketApp.factory('MarketService', [function() {
         constructor(balance) {
             this.balance = balance;
             this.cart = [];
-            this.cartSummary = [];
+            // this.cartSummary = [];
         }
 
         IncBal(salePrice) {
@@ -42,12 +42,12 @@ marketApp.factory('MarketService', [function() {
 
         DecBal(salePrice) {
             this.balance -= salePrice;
+            console.log(this.balance);
         }
 
         CountItem(foo) {
             let count = 0;
             for (index of this.cart) {
-              console.log("inside CountItem name: ",foo);
                 if (index.name === foo) {
                     count++;
                 }
@@ -71,8 +71,6 @@ marketApp.factory('MarketService', [function() {
             }
             return avg;
         }
-
-
     } //end UserAcc Class
 
     //marketItems array of instantiated objects of class marketItem
@@ -80,8 +78,11 @@ marketApp.factory('MarketService', [function() {
     //market obect houses the array of marketItems is a portal
     let market = {};
 
+    let cartSummary = [];
+
     //instantiate a user with a balance
-    let user = new UserAcc(BALANCE);
+    let user = new UserAcc(balance);
+    console.log('user is: ', user);
 
     //list of items which will be instantiated as objects of class marketItem
     let listOfItems = ['toaster', 'lamp', 'clock', 'blueRay player','apples','oranges','bananas','grapes','comic books','stuffed animals','jewelry','wine'];
@@ -92,65 +93,75 @@ marketApp.factory('MarketService', [function() {
       marketItems.push(newItem);
     }
 
+    let InitializeCartSummary = () => {
+      console.log('in InitializeCartSummary');
+      cartSummary = [];
+      let summaryObject;
+
+      for(let i = 0; i < listOfItems.length; i++) {
+        let itemName = listOfItems[i];
+        summaryObject = {};
+        summaryObject.name = itemName;
+        summaryObject.avgPrice = user.PriceAvg(itemName);
+        summaryObject.count = user.CountItem(itemName);
+        cartSummary.push(summaryObject);
+      }
+      console.log('Just initialized cartSummary',cartSummary);
+    }
+
+    let UpdateCartSummary = (itemName) => {
+      console.log('in UpdateCartSummary');
+
+      for(let i = 0; i < cartSummary.length; i++) {
+        if(cartSummary[i].name === itemName) {
+          cartSummary[i].avgPrice = user.PriceAvg(itemName);
+          cartSummary[i].count = user.CountItem(itemName);
+        }
+      }
+      console.log('Just updated cartSummary',cartSummary);
+    }
+
     //adding merketItems array into market object
     market.marketItems = marketItems;
+
     //builds the original summary array
-    //UpdateCartSummary();
+    InitializeCartSummary();
+
 
     let sellItem = (item) => {
       //balance + item.price (from MArketItems)
       user.IncBal(item.price);
       //remove from cart first instance of that item
-      for (index of user.cart) {
-          if (index === name) {
-              user.cart.splice(index);
-              return; // need to jump out of for of loop
-          }//end if
-      }//ends for loop
-      UpdateCartSummary();
+      let i = 0;
+      let notFound = true;
+      while (notFound === true && i < user.cart.length) {
+        if(user.cart[i].name === item.name) {
+          user.cart.splice(i,1);
+          notFound = false;
+        } else {
+          i++;
+        }
+      }
+      UpdateCartSummary(item.name);
     }// end sellItem function
 
     let buyItem = (item) => {
       //balance - item.price (from MArketItems)
       user.DecBal(item.price);
+      console.log('in buyItem balance is: ', user.balance);
       //add item to cart
       user.cart.push(item);
-      UpdateCartSummary();
+      UpdateCartSummary(item.name);
     }// end buyItem function
-
-    let UpdateCartSummary = () => {
-      user.cartSummary = [];
-      let summaryObject;
-      for(let i = 0; i < listOfItems.length; i++) {
-        index = listOfItems[i];
-        summaryObject = {};
-        summaryObject.name = index;
-        // console.log(index);
-          summaryObject.avgPrice = user.PriceAvg(index);
-          summaryObject.count = user.CountItem(index.name);
-          user.cartSummary.push(summaryObject);
-          // console.log("inside UpdateCartSummary", summaryObject, user.cartSummary);
-      }
-
-      // for (index of listOfItems) {
-      //   let summaryObject = {};
-      //   summaryObject.name = index;
-      //   summaryObject.avgPrice = user.PriceAvg(index);
-      //   console.log("inside UpdateCartSummary", index);
-      //   summaryObject.count = user.CountItem(index);
-      //   user.cartSummary.push(summaryObject);
-      // }
-    }
-
 
     return {
         user: user,
         market: market,
         sellItem: sellItem,
         buyItem: buyItem,
-        UpdateCartSummary: UpdateCartSummary
-
-
+        cartSummary: cartSummary,
+        UpdateCartSummary: UpdateCartSummary,
+        balance: user.balance
     }
 
 }]);
