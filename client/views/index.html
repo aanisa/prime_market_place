@@ -49,13 +49,13 @@
       </div>
 
       <div class="row" ng-controller="SellController">
-        <div class="margin_container col-md-1" ng-repeat="sellItem in itemsInCart">
+        <div class="margin_container col-md-1" ng-repeat="sellItem in cartSummary">
           <div class="sell_container">
             <div class="item_avgPrice">{{'Avg Price Paid: $' + sellItem.avgPrice}}</div>
             <div class="btn btn-success item_available" ng-click="sellOneItem(sellItem.name)">
               {{sellItem.name}}
               <br>
-              {{"Available: " + sellItem.available}}
+              {{"Available: " + sellItem.count}}
             </div>
           </div>
         </div>

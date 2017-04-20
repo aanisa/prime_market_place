@@ -33,7 +33,8 @@ marketApp.controller('SellController', ['$scope', 'MarketService', function($sco
   //                       {name:"Stuffed Animals",avgPrice:3,available:3},
   //                       {name:"Jewelry",avgPrice:3,available:3},
   //                       {name:"Wine",avgPrice:3,available:4}];
-  $scope.itemsInCart = MarketService.
+  MarketService.UpdateCartSummary();
+  $scope.cartSummary = MarketService.user.cartSummary;
 
 $scope.sellOneItem = function(item) {
     console.log('sell button clicked, selling one', item);

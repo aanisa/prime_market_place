@@ -47,7 +47,7 @@ marketApp.factory('MarketService', [function() {
 
         CountItem(name) {
             let count = 0;
-            for (index of cart) {
+            for (index of this.cart) {
                 if (index.name === name) {
                     count++;
                 }
@@ -58,15 +58,23 @@ marketApp.factory('MarketService', [function() {
         PriceAvg(name) {
             let avg = 0;
             let total = 0;
-            let count = CountItem(name);
-            for (index of cart) {
+            let count = this.CountItem(name);
+            console.log('count is:',count);
+            for (index of this.cart) {
                 if (index.name === name) {
                     total = total + index.price;
                 }
             }
-            avg = total / count
+            if(count == 0) {
+              avg = 0;
+            } else {
+              avg = total / count
+            }
+            console.log('average is: ',avg);
             return avg;
         }
+
+
     } //end UserAcc Class
 
     //marketItems array of instantiated objects of class marketItem
@@ -82,14 +90,14 @@ marketApp.factory('MarketService', [function() {
 
     //for of loop which instantiates objects of class marketItem based on the listOfItems array
     for (index of listOfItems) {
-
       let newItem = new marketItem(index, utilities.randomNumber(MAXPRICE,MINPRICE));
       marketItems.push(newItem);
     }
 
     //adding merketItems array into market object
     market.marketItems = marketItems;
-
+    //builds the original summary array
+    //UpdateCartSummary();
 
     let sellItem = (item) => {
       //balance + item.price (from MArketItems)
@@ -101,6 +109,7 @@ marketApp.factory('MarketService', [function() {
               return; // need to jump out of for of loop
           }//end if
       }//ends for loop
+      UpdateCartSummary();
     }// end sellItem function
 
     let buyItem = (item) => {
@@ -108,22 +117,28 @@ marketApp.factory('MarketService', [function() {
       user.DecBal(item.price);
       //add item to cart
       user.cart.push(item);
+      UpdateCartSummary();
 
     }// end buyItem function
 
-    let updateCartSummary = (item) => {
-      for (index of cartSummary) {
-        if (index === name) {
-
-        }
+    let UpdateCartSummary = () => {
+      for (index of listOfItems) {
+        let summaryObject = {};
+        summaryObject.name = index;
+        summaryObject.avgPrice = user.PriceAvg(index);
+        summaryObject.count = user.CountItem(index);
+        user.cartSummary.push(summaryObject);
       }
     }
+
 
     return {
         user: user,
         market: market,
         sellItem: sellItem,
-        buyItem: buyItem
+        buyItem: buyItem,
+        UpdateCartSummary: UpdateCartSummary
+
 
     }
 
