@@ -66,37 +66,43 @@ marketApp.factory('MarketService', [function() {
 
     const BALANCE = 100;
 
+    //marketItems array of instantiated objects of class marketItem
     let marketItems = [];
+    //market obect houses the array of marketItems is a portal
     let market = {};
 
-
+    //instantiate a user with a balance
     let user = new UserAcc(BALANCE);
 
+    //list of items which will be instantiated as objects of class marketItem
     let listOfItems = ['toaster', 'lamp', 'clock', 'blueRay player','apples','oranges','bananas','grapes','comic books','stuffed animals','jewelry','wine'];
 
+    //for of loop which instantiates objects of class marketItem based on the listOfItems array
     for (index of listOfItems) {
       let newItem = new marketItem(index, utilities.randomNumber(9.99,.50));
       marketItems.push(newItem);
     }
 
-    market.marketItems = mareketItems;
+    //adding merketItems array into market object
+    market.marketItems = marketItems;
 
-        let sellItem = (item) => {
-            //balance + item.price (from MArketItems)
-            user.balance += item;
 
-            //remove from cart first instance of that item
-            for (index of cart) {
-                if (index === name) {
-                    cart.splice(index);
-                }
-            }
-            // call this method     DecBal()
-        }
+    let sellItem = (item) => {
+      //balance + item.price (from MArketItems)
+      user.IncBal(item.price);
+      //remove from cart first instance of that item
+      for (index of cart) {
+          if (index === name) {
+              cart.splice(index);
+              return; // need to jump out of for of loop
+          }
+      }
+      // call this method     DecBal()
+    }// end sellItem function
 
-        let buyItem = () => {
+    let buyItem = () => {
 
-        }
+    }// end buyItem function
 
     return {
         user: user,
