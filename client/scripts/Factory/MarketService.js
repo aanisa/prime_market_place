@@ -2,7 +2,6 @@ marketApp.factory('MarketService', [function() {
   class utilities{
         constructor(){}
         static randomNumber (max,min){
-          console.log((Math.random() * (9.99 - 0.5 ) + 0.5).toFixed(2));
           return ((Math.random() * (max - min ) + min).toFixed(2));
         }
     }
@@ -45,10 +44,11 @@ marketApp.factory('MarketService', [function() {
             this.balance -= salePrice;
         }
 
-        CountItem(name) {
+        CountItem(foo) {
             let count = 0;
             for (index of this.cart) {
-                if (index.name === name) {
+              console.log("inside CountItem name: ",foo);
+                if (index.name === foo) {
                     count++;
                 }
             }
@@ -59,21 +59,16 @@ marketApp.factory('MarketService', [function() {
             let avg = 0;
             let total = 0;
             let count = this.CountItem(name);
-            console.log('count is:',count);
             for (index of this.cart) {
                 if (index.name === name) {
-                  console.log("inside if", index);
                     total = total + parseFloat(index.price);
                 }
             }
             if(count == 0) {
               avg = 0;
-              console.log("if",avg);
             } else {
               avg = total / count;
-              console.log("else",avg, total, count);
             }
-            console.log('average is: ',avg);
             return avg;
         }
 
@@ -121,18 +116,30 @@ marketApp.factory('MarketService', [function() {
       //add item to cart
       user.cart.push(item);
       UpdateCartSummary();
-
     }// end buyItem function
 
     let UpdateCartSummary = () => {
       user.cartSummary = [];
-      for (index of listOfItems) {
-        let summaryObject = {};
+      let summaryObject;
+      for(let i = 0; i < listOfItems.length; i++) {
+        index = listOfItems[i];
+        summaryObject = {};
         summaryObject.name = index;
-        summaryObject.avgPrice = user.PriceAvg(index);
-        summaryObject.count = user.CountItem(index);
-        user.cartSummary.push(summaryObject);
+        // console.log(index);
+          summaryObject.avgPrice = user.PriceAvg(index);
+          summaryObject.count = user.CountItem(index.name);
+          user.cartSummary.push(summaryObject);
+          // console.log("inside UpdateCartSummary", summaryObject, user.cartSummary);
       }
+
+      // for (index of listOfItems) {
+      //   let summaryObject = {};
+      //   summaryObject.name = index;
+      //   summaryObject.avgPrice = user.PriceAvg(index);
+      //   console.log("inside UpdateCartSummary", index);
+      //   summaryObject.count = user.CountItem(index);
+      //   user.cartSummary.push(summaryObject);
+      // }
     }
 
 
