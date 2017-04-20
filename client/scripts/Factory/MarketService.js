@@ -5,7 +5,7 @@ marketApp.factory('MarketService', [function() {
           return ((Math.random() * (max - min ) + min).toFixed(2));
         }
     }
-    let balance = 100;
+    const BALANCE = 100;
     const MAXPRICE = 9.99;
     const MINPRICE = 0.50;
     const MAXPRICECHANGE = 0.5;
@@ -19,7 +19,6 @@ marketApp.factory('MarketService', [function() {
 
         changePrice(){
           let price = parseFloat(this.price) + parseFloat(utilities.randomNumber(MAXPRICECHANGE,MINPRICECHANGE));
-          console.log('Random number: ',parseFloat(utilities.randomNumber(MAXPRICECHANGE,MINPRICECHANGE)));
           if (price > 9.99){
             price = 9.99
           }
@@ -43,7 +42,7 @@ marketApp.factory('MarketService', [function() {
 
         DecBal(salePrice) {
             this.balance -= salePrice;
-            console.log(this.balance);
+            // console.log(this.balance);
         }
 
         CountItem(foo) {
@@ -82,8 +81,8 @@ marketApp.factory('MarketService', [function() {
     let cartSummary = [];
 
     //instantiate a user with a balance
-    let user = new UserAcc(balance);
-    console.log('user is: ', user);
+    let user = new UserAcc(BALANCE);
+
 
     //list of items which will be instantiated as objects of class marketItem
     let listOfItems = ['toaster', 'lamp', 'clock', 'blueRay player','apples','oranges','bananas','grapes','comic books','stuffed animals','jewelry','wine'];
@@ -95,7 +94,7 @@ marketApp.factory('MarketService', [function() {
     }
 
     let InitializeCartSummary = () => {
-      console.log('in InitializeCartSummary');
+      // console.log('in InitializeCartSummary');
       cartSummary = [];
       let summaryObject;
 
@@ -107,11 +106,11 @@ marketApp.factory('MarketService', [function() {
         summaryObject.count = user.CountItem(itemName);
         cartSummary.push(summaryObject);
       }
-      console.log('Just initialized cartSummary',cartSummary);
+      // console.log('Just initialized cartSummary',cartSummary);
     }
 
     let UpdateCartSummary = (itemName) => {
-      console.log('in UpdateCartSummary');
+      // console.log('in UpdateCartSummary');
 
       for(let i = 0; i < cartSummary.length; i++) {
         if(cartSummary[i].name === itemName) {
@@ -119,19 +118,27 @@ marketApp.factory('MarketService', [function() {
           cartSummary[i].count = user.CountItem(itemName);
         }
       }
-      console.log('Just updated cartSummary',cartSummary);
+      // console.log('Just updated cartSummary',cartSummary);
     }
 
     //adding merketItems array into market object
     market.marketItems = marketItems;
-
     //builds the original summary array
     InitializeCartSummary();
 
 
     let sellItem = (item) => {
       //balance + item.price (from MArketItems)
-      user.IncBal(item.price);
+
+
+      for (index of marketItems ) {
+        if (index.name === item.name) {
+      console.log('ITEM NAME:', item.name, 'ITEM PRICE', index.price);
+        user.IncBal(parseFloat(index.price));
+        }
+        console.log('INCRES BALANCE:',user.balance);
+      }
+
       //remove from cart first instance of that item
       let i = 0;
       let notFound = true;
@@ -149,7 +156,7 @@ marketApp.factory('MarketService', [function() {
     let buyItem = (item) => {
       //balance - item.price (from MArketItems)
       user.DecBal(item.price);
-      console.log('in buyItem balance is: ', user.balance);
+      // console.log('in buyItem balance is: ', user.balance);
       //add item to cart
       user.cart.push(item);
       UpdateCartSummary(item.name);
@@ -162,7 +169,7 @@ marketApp.factory('MarketService', [function() {
         buyItem: buyItem,
         cartSummary: cartSummary,
         UpdateCartSummary: UpdateCartSummary,
-        balance: user.balance
+
     }
 
 }]);

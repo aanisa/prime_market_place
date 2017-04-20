@@ -2,7 +2,7 @@ var marketApp = angular.module('marketApp', []);
 
 marketApp.controller('BalanceController', ['$scope', '$interval', 'MarketService', function($scope, $interval, MarketService){
   // temporary variable that stores balance
-  $scope.balance = MarketService.balance;
+  $scope.user = MarketService.user;
 
 }]);
 
