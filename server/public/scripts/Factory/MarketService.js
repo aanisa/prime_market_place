@@ -69,6 +69,7 @@ marketApp.factory('MarketService', [function() {
     let marketItems = [];
     let market = {};
 
+
     let user = new UserAcc(BALANCE);
 
     let listOfItems = ['toaster', 'lamp', 'clock', 'blueRay player','apples','oranges','bananas','grapes','comic books','stuffed animals','jewelry','wine'];
