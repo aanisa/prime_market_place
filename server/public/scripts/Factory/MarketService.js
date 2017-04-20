@@ -2,9 +2,15 @@ marketApp.factory('MarketService', [function() {
   class utilities{
         constructor(){}
         static randomNumber (max,min){
-          return Math.floor(Math.random() * (1 + max - min ) + min);
+          console.log((Math.random() * (9.99 - 0.5 ) + 0.5).toFixed(2));
+          return ((Math.random() * (max - min ) + min).toFixed(2));
         }
     }
+    const BALANCE = 100;
+    const MAXPRICE = 9.99;
+    const MINPRICE = 0.50;
+    const MAXPRICECHANGE = 0.5;
+    const MINPRICECHANGE = -0.5
 
     class marketItem{
         constructor(name, price){
@@ -13,7 +19,7 @@ marketApp.factory('MarketService', [function() {
         }//ends contructor
 
         changePrice(){
-          let price = this.price + utilities.randomNumber(.5,-.5);
+          let price = this.price + utilities.randomNumber(MAXPRICECHANGE,MINPRICECHANGE);
           if (price > 9.99){
             price = 9.99
           }
@@ -28,6 +34,7 @@ marketApp.factory('MarketService', [function() {
         constructor(balance) {
             this.balance = balance;
             this.cart = [];
+            this.cartSummary = [];
         }
 
         IncBal(salePrice) {
@@ -62,8 +69,6 @@ marketApp.factory('MarketService', [function() {
         }
     } //end UserAcc Class
 
-    const BALANCE = 100;
-
     //marketItems array of instantiated objects of class marketItem
     let marketItems = [];
     //market obect houses the array of marketItems is a portal
@@ -77,7 +82,8 @@ marketApp.factory('MarketService', [function() {
 
     //for of loop which instantiates objects of class marketItem based on the listOfItems array
     for (index of listOfItems) {
-      let newItem = new marketItem(index, utilities.randomNumber(9.99,.50));
+
+      let newItem = new marketItem(index, utilities.randomNumber(MAXPRICE,MINPRICE));
       marketItems.push(newItem);
     }
 
@@ -102,7 +108,16 @@ marketApp.factory('MarketService', [function() {
       user.DecBal(item.price);
       //add item to cart
       user.cart.push(item);
+
     }// end buyItem function
+
+    let updateCartSummary = (item) => {
+      for (index of cartSummary) {
+        if (index === name) {
+
+        }
+      }
+    }
 
     return {
         user: user,
