@@ -19,7 +19,7 @@ marketApp.factory('MarketService', [function() {
 
         changePrice(){
           let price = parseFloat(this.price) + parseFloat(utilities.randomNumber(MAXPRICECHANGE,MINPRICECHANGE));
-          console.log('Random number: ',parseFloat(utilities.randomNumber(MAXPRICECHANGE,MINPRICECHANGE)));
+          // console.log('Random number: ',parseFloat(utilities.randomNumber(MAXPRICECHANGE,MINPRICECHANGE)));
           if (price > 9.99){
             price = 9.99
           }
@@ -70,7 +70,7 @@ marketApp.factory('MarketService', [function() {
             } else {
               avg = total / count;
             }
-            return avg;
+            return avg.toFixed(2);
         }
     } //end UserAcc Class
 
@@ -111,7 +111,7 @@ marketApp.factory('MarketService', [function() {
     }
 
     let UpdateCartSummary = (itemName) => {
-      console.log('in UpdateCartSummary');
+      // console.log('in UpdateCartSummary');
 
       for(let i = 0; i < cartSummary.length; i++) {
         if(cartSummary[i].name === itemName) {
@@ -119,7 +119,7 @@ marketApp.factory('MarketService', [function() {
           cartSummary[i].count = user.CountItem(itemName);
         }
       }
-      console.log('Just updated cartSummary',cartSummary);
+      // console.log('Just updated cartSummary',cartSummary);
     }
 
     //adding merketItems array into market object
@@ -149,10 +149,13 @@ marketApp.factory('MarketService', [function() {
     let buyItem = (item) => {
       //balance - item.price (from MArketItems)
       user.DecBal(item.price);
-      console.log('in buyItem balance is: ', user.balance);
+      // console.log('in buyItem balance is: ', user.balance);
       //add item to cart
-      user.cart.push(item);
+      console.log("Cart in buyItem function:",user.cart);
+      let itemToPush = angular.copy(item);
+      user.cart.push(itemToPush);
       UpdateCartSummary(item.name);
+      console.log('cartSummary:',cartSummary);
     }// end buyItem function
 
     return {
