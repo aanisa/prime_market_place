@@ -33,11 +33,11 @@ marketApp.factory('MarketService', [function() {
         }
 
         IncBal(salePrice) {
-            this.balance + salePrice;
+            this.balance += salePrice;
         }
 
         DecBal(salePrice) {
-            this.balance - salePrice;
+            this.balance -= salePrice;
         }
 
         CountItem(name) {
@@ -60,6 +60,7 @@ marketApp.factory('MarketService', [function() {
                 }
             }
             avg = total / count
+            return avg;
         }
     } //end UserAcc Class
 
@@ -87,7 +88,8 @@ marketApp.factory('MarketService', [function() {
 
     return {
         user: user,
-        market: market
+        market: market,
+
     }
 
 }]);
