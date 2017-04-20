@@ -34,7 +34,7 @@
 
       <div class="row" ng-controller='BuyController'>
           <div class="margin_container col-md-1" ng-repeat="item in availableItems">
-            <div class="btn btn-info buy_container" ng-click="buyOneItem(item.name)">
+            <div class="btn btn-info buy_container" ng-click="buyOneItem(item)">
                 <!-- <p class="item_name">{{item.name}}</p>
                 <p class="item_price">{{'$' + item.price}}</p> -->
                 {{item.name}}
@@ -52,7 +52,7 @@
         <div class="margin_container col-md-1" ng-repeat="sellItem in cartSummary">
           <div class="sell_container">
             <div class="item_avgPrice">{{'Avg Price Paid: $' + sellItem.avgPrice}}</div>
-            <div class="btn btn-success item_available" ng-click="sellOneItem(sellItem.name)">
+            <div class="btn btn-success item_available" ng-click="sellOneItem(sellItem)">
               {{sellItem.name}}
               <br>
               {{"Available: " + sellItem.count}}

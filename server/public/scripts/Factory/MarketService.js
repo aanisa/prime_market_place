@@ -62,13 +62,16 @@ marketApp.factory('MarketService', [function() {
             console.log('count is:',count);
             for (index of this.cart) {
                 if (index.name === name) {
-                    total = total + index.price;
+                  console.log("inside if", index);
+                    total = total + parseFloat(index.price);
                 }
             }
             if(count == 0) {
               avg = 0;
+              console.log("if",avg);
             } else {
-              avg = total / count
+              avg = total / count;
+              console.log("else",avg, total, count);
             }
             console.log('average is: ',avg);
             return avg;
@@ -122,6 +125,7 @@ marketApp.factory('MarketService', [function() {
     }// end buyItem function
 
     let UpdateCartSummary = () => {
+      user.cartSummary = [];
       for (index of listOfItems) {
         let summaryObject = {};
         summaryObject.name = index;
