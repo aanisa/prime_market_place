@@ -1,53 +1,34 @@
 var marketApp = angular.module('marketApp', []);
 
-marketApp.controller('BalanceController', ['$scope', function($scope){
-  console.log("inside BalanceController ");
+marketApp.controller('BalanceController', ['$scope', '$interval', 'MarketService', function($scope, $interval, MarketService){
   // temporary variable that stores balance
-  $scope.balance = 100;
+  $scope.user = MarketService.user;
 
 }]);
 
-marketApp.controller('BuyController', ['$scope', function($scope){
-  console.log("inside BuyController");
-  //temporary array of items
-  $scope.availableItems = [{name:"Toaster",price:3},
-                           {name:"Lamp",price:14},
-                           {name:"Clock",price:5},
-                           {name:"BlueRay Player",price:3},
-                           {name:"Apples",price:3},
-                           {name:"Oranges",price:3},
-                           {name:"Bananas",price:3},
-                           {name:"Grapes",price:3},
-                           {name:"Comic Books",price:3},
-                           {name:"Stuffed Animals",price:3},
-                           {name:"Jewelry",price:3},
-                           {name:"Wine",price:3}];
+marketApp.controller('MarketController', ['$scope', '$interval', 'MarketService', function($scope, $interval, MarketService){
+  $scope.cartSummary = MarketService.cartSummary;
+  $scope.availableItems = MarketService.market.marketItems;
 
   $scope.buyOneItem = function(item) {
-   console.log('buy button clicked, buying one', item);
+    console.log('buy button clicked, buying one', item);
+    MarketService.buyItem(item);
+    // console.log('cartSummary in BuyController',$scope.cartSummary);
   };
 
-}]);
+  $scope.sellOneItem = function(item) {
+    if(item.count > 0) {
+      console.log('sell button clicked, selling one', item);
+      MarketService.sellItem(item);
+    }
+    // console.log('cartSummary in sellOneItem',$scope.cartSummary);
+  };
 
-marketApp.controller('SellController', ['$scope', function($scope){
-  console.log("inside SellController");
-  //temporary array of purchased products
-  $scope.itemsInCart = [{name:"Toaster",avgPrice:3,available:5},
-                        {name:"Lamp",avgPrice:3,available:3},
-                        {name:"Clock",avgPrice:3,available:3},
-                        {name:"BlueRay Player",avgPrice:3,available:3},
-                        {name:"Apples",avgPrice:3,available:3},
-                        {name:"Oranges",avgPrice:3,available:3},
-                        {name:"Bananas",avgPrice:3,available:3},
-                        {name:"Grapes",avgPrice:3,available:3},
-                        {name:"Comic Books",avgPrice:3,available:3},
-                        {name:"Stuffed Animals",avgPrice:3,available:3},
-                        {name:"Jewelry",avgPrice:3,available:3},
-                        {name:"Wine",avgPrice:3,available:4}];
 
-$scope.sellOneItem = function(item) {
-    console.log('sell button clicked, selling one', item);
-};
-
+  var change = $interval(function(){
+    for (let i = 0; i < $scope.availableItems.length; i++) {
+      $scope.availableItems[i].changePrice();
+    }
+  },15000);
 
 }]);
