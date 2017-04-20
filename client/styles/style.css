@@ -1,0 +1,19 @@
+.buy_container {
+  width: 100px;
+  height: 100px;
+  background-color: salmon;
+  margin: 2px;
+  border: 1px 1px 1px;
+  float: left;
+  text-align: center;
+}
+
+.sell_container {
+  width: 100px;
+  height: 100px;
+  background-color: lightgray;
+  margin: 2px;
+  border: 1px 1px 1px;
+  float: left;
+  text-align: center;
+}
