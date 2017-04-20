@@ -14,7 +14,7 @@ marketApp.controller('BuyController', ['$scope', 'MarketService', function($scop
   $scope.buyOneItem = function(item) {
     console.log('buy button clicked, buying one', item);
     MarketService.buyItem(item);
-    console.log($scope.cartSummary);
+    console.log("inside the BuyController", $scope.cartSummary);
 
   };
 

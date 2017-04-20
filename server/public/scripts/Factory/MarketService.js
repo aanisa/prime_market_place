@@ -44,13 +44,16 @@ marketApp.factory('MarketService', [function() {
             this.balance -= salePrice;
         }
 
-        CountItem(foo) {
+        CountItem(name) {
             let count = 0;
+            // console.log("I'm buying this thing:", name);
+            // console.log("This is my cart:", this.cart);
             for (index of this.cart) {
-              console.log("inside CountItem name: ",foo);
-                if (index.name === foo) {
+                if (index.name === name) {
+                    console.log("SUCCESS");
                     count++;
                 }
+                // console.log("count", count);
             }
             return count;
         }
@@ -122,25 +125,17 @@ marketApp.factory('MarketService', [function() {
       user.cartSummary = [];
       let summaryObject;
       for(let i = 0; i < listOfItems.length; i++) {
-        index = listOfItems[i];
-        summaryObject = {};
-        summaryObject.name = index;
-        // console.log(index);
-          summaryObject.avgPrice = user.PriceAvg(index);
-          summaryObject.count = user.CountItem(index.name);
+          summaryObject = {};
+          let itemName = listOfItems[i];
+          summaryObject.name = itemName;
+          let avgPrice = user.PriceAvg(itemName);
+          summaryObject.avgPrice = avgPrice;
+          let count = user.CountItem(itemName);
+          summaryObject.count = count;
           user.cartSummary.push(summaryObject);
-          // console.log("inside UpdateCartSummary", summaryObject, user.cartSummary);
-      }
-
-      // for (index of listOfItems) {
-      //   let summaryObject = {};
-      //   summaryObject.name = index;
-      //   summaryObject.avgPrice = user.PriceAvg(index);
-      //   console.log("inside UpdateCartSummary", index);
-      //   summaryObject.count = user.CountItem(index);
-      //   user.cartSummary.push(summaryObject);
-      // }
-    }
+      }//end for loop
+      console.log("inside UpdateCartSummary user.cartSummary", user.cartSummary );
+    }//end UpdateCartSummary
 
 
     return {
