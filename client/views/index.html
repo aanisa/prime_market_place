@@ -14,6 +14,7 @@
   <body>
 
 
+
 <div class="container">
   <div class="row header">
     <h1>Welcome To The Market</h1>
@@ -27,5 +28,53 @@
 </div>
 </div>
 
+    <div class="container-fluid">
+      <div class="row jumbotron">
+        <h2>Welcome To The Market</h2>
+        <p>You have 15 minutes to make as much money as you can!
+          To achieve this you will need to purchase items and sell them when the
+          price becomes higher. To help, you can see the average price you paid
+          for each item next to its green sell button. To purchase an item,
+          simply click on the blue item button. Good luck!</p>
+      </div>
+    </div>
+    <div class="container-fluid">
+
+      <div class="row" ng-controller="BalanceController">
+        <div class="balance_container col-md-12">
+          <p>{{'Player Cash: $' + balance}}</p>
+        </div>
+      </div>
+
+      <div class="row" ng-controller='BuyController'>
+          <div class="margin_container col-md-1" ng-repeat="item in availableItems">
+            <div class="btn btn-info buy_container" ng-click="buyOneItem(item.name)">
+                <!-- <p class="item_name">{{item.name}}</p>
+                <p class="item_price">{{'$' + item.price}}</p> -->
+                {{item.name}}
+                <br>
+                {{'$' + item.price}}
+            </div>
+          </div>
+      </div>
+
+      <div class="row">
+        <p> </p>
+      </div>
+
+      <div class="row" ng-controller="SellController">
+        <div class="margin_container col-md-1" ng-repeat="sellItem in itemsInCart">
+          <div class="sell_container">
+            <div class="item_avgPrice">{{'Avg Price Paid: $' + sellItem.avgPrice}}</div>
+            <div class="btn btn-success item_available" ng-click="sellOneItem(sellItem.name)">
+              {{sellItem.name}}
+              <br>
+              {{"Available: " + sellItem.available}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </body>
 </html>

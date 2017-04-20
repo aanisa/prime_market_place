@@ -1,0 +1,33 @@
+
+.balance_container {
+  text-align: center;
+  font-size: 30px;
+}
+
+.buy_container {
+  width: 100px;
+  height: 80px;
+  text-align: center;
+  align-items:center;
+  display:grid;
+  font-size: 12px;
+  padding: 2px;
+}
+
+.sell_container {
+  width: 100px;
+  height: 90px;
+  background-color: white;
+  font-size: 12px;
+  text-align: center;
+}
+
+.item_available {
+  color: white;
+  height: 80px;
+  font-size: 12px;
+  /*text-align: center;*/
+  align-items:center;
+  display:grid;
+  padding: 2px;
+}
