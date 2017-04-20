@@ -52,7 +52,10 @@
       <div class="row" >
         <div class="margin_container col-md-1" ng-repeat="sellItem in cartSummary">
           <div class="sell_container">
-            <div class="item_avgPrice">{{'Avg Price Paid: $' + sellItem.avgPrice}}</div>
+            <div class="item_avgPrice">
+              {{'Avg Price Paid:'}}
+              <br>
+               {{'$' + sellItem.avgPrice}}</div>
             <div class="btn btn-success item_available" ng-click="sellOneItem(sellItem)">
               {{sellItem.name}}
               <br>

@@ -18,14 +18,15 @@ marketApp.factory('MarketService', [function() {
         }//ends contructor
 
         changePrice(){
-          let price = this.price + utilities.randomNumber(MAXPRICECHANGE,MINPRICECHANGE);
+          let price = parseFloat(this.price) + parseFloat(utilities.randomNumber(MAXPRICECHANGE,MINPRICECHANGE));
+          console.log('Random number: ',parseFloat(utilities.randomNumber(MAXPRICECHANGE,MINPRICECHANGE)));
           if (price > 9.99){
             price = 9.99
           }
           else if (price < .50){
             price = .50
           }
-          this.price = price;
+          this.price = price.toFixed(2);
         }//ends changePrice
     }//ends marketItem
 

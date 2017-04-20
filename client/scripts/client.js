@@ -1,12 +1,12 @@
 var marketApp = angular.module('marketApp', []);
 
-marketApp.controller('BalanceController', ['$scope', 'MarketService', function($scope, MarketService){
+marketApp.controller('BalanceController', ['$scope', '$interval', 'MarketService', function($scope, $interval, MarketService){
   // temporary variable that stores balance
   $scope.balance = MarketService.balance;
 
 }]);
 
-marketApp.controller('MarketController', ['$scope', 'MarketService', function($scope, MarketService){
+marketApp.controller('MarketController', ['$scope', '$interval', 'MarketService', function($scope, $interval, MarketService){
   $scope.cartSummary = MarketService.cartSummary;
   $scope.availableItems = MarketService.market.marketItems;
 
@@ -21,5 +21,12 @@ marketApp.controller('MarketController', ['$scope', 'MarketService', function($s
     MarketService.sellItem(item);
     console.log('cartSummary in sellOneItem',$scope.cartSummary);
   };
+
+
+  var change = $interval(function(){
+    for (let i = 0; i < $scope.availableItems.length; i++) {
+      $scope.availableItems[i].changePrice();
+    }
+  },5000);
 
 }]);
