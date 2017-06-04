@@ -5,9 +5,9 @@ Available to the user is a total cash and an inventory display that shows how mu
 
 # Getting Started
 Open the project
-Run `npm install`
-Run `grunt`
-Run `npm start`
+* Run `npm install`
+* Run `grunt`
+* Run `npm start`
 
 # Built With:
 Bootstrap
