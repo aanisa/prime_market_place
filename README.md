@@ -1,3 +1,4 @@
+# Prime Digital Academy - Code Challenge
 # The Market Place
 The aim of this challenge is to utilize Angular factories and controllers to create an interface for users to 'buy' from a list of 12 items. The prices for each of the items will be displayed and as the user buys an item, money will be deducted from their account in exchange for one of those items. That item is kept in a player inventory. Additionally, every 15 seconds, the prices of those items will change. The player will also be allowed to 'sell' items from their inventory in exchange for the current price of the item. This will give the player to buy the items at one price, and then sell at another.
 
